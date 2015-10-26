@@ -1,0 +1,12 @@
+server {
+
+    listen 80;
+    server_name munin.zaposlim.se;
+
+    location / {
+        allow 82.192.55.148;
+        deny all;
+        root /var/www/munin;
+    }
+
+}

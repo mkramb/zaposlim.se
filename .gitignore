@@ -1,0 +1,16 @@
+/.settings
+/.project
+/.bash_history
+/.bashrc
+/.viminfo
+/.pydevproject
+/modules/.scrapy
+/modules/scraper/settings_local.py
+/modules/website/settings_local.py
+/modules/website/media/job/full
+/modules/website/media/job/thumbs
+/modules/website/static/CACHE
+/modules/website/.sass-cache
+*.pyc
+*.scssc
+.DS_Store

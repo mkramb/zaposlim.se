@@ -1,0 +1,103 @@
+{% load i18n template_additions %}
+<div id="search-container">
+  <div class="logo ir png_bg">{% trans "Zaposlim.se" %}</div>
+  <form name="search" onsubmit="return false" autocomplete="off">
+      <div class="element">
+          <div class="title"><label for="what_home">{% trans "kaj?" %}</label></div>
+          <div class="input"><input type="text" id="what_home" name="what" maxlength="100" tabindex="1" /></div>
+          <div class="help">{% trans "delovno mesto, ključne besede ali ime podjetja" %}</div>
+      </div>
+        <div class="element">
+            <div class="title"><label for="where_home">{% trans "kje?" %}</label></div>
+          <div class="input"><input type="text" id="where_home" name="where" maxlength="100" tabindex="2" /></div>
+            <div class="help">{% trans "mesto ali kraj" %}</div>
+      </div>
+      <div class="element hs">
+          <input type="submit" value="{% trans "Najdi delo" %}" tabindex="3"/>
+      </div>
+  </form>
+</div>
+<div class="clearfix"></div>
+<div id="sub-search-container">
+  <div id="sub-search">
+    <div class="top-container">
+      <h3>{% trans "Popularna iskanja:" %}</h3>
+      <div class="top">
+                {% if request.is_crawler %}
+                    {{ job_top|safe }}
+                {% endif %}
+      </div>
+      <div class="more">
+                <a href="/#!stats?popularna-iskanja">{% trans "več" %}</a>
+            </div>
+        </div>
+    <div class="latest-container">
+      <h3>{% trans "Zadnja iskanja:" %}</h3>
+            <div class="latest">
+                {% if request.is_crawler %}
+                    {{ job_latest|safe }}
+                {% endif %}
+            </div>
+            <div class="more">
+                <a href="/#!stats?zadnja-iskanja">{% trans "več" %}</a>
+            </div>
+        </div>
+
+        <div id="jobmap-container">
+            <h3>{% trans "Zemljevid zaposlitev:" %}</h3>
+            <div id="jobmap">
+                {% if not request.is_crawler %}
+                    <div id="map_canvas"></div>
+                {% else %}
+                    {% for city in job_cities %}
+                        <div class="item"><a href="/#!zaposlitev?where={{ city }}">{{ city }}</a></div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+        <div><div class="click-map"></div></div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<div class="clearfix"></div>
+<div id="intro-container">
+    <div id="intro">
+        <div class="description default-dsc">
+            <h3>
+                {% blocktrans %}
+                    Dobrodošli na prvem slovenskem iskalniku po zaposlitvenih oglasih. Preiščite največjo bazo zaposlitev
+                    na enem mestu in najdite svojo sanjsko zaposlitev. Trenutno iščemo po <strong>{{ job_count }}</strong> oglasih.
+                {% endblocktrans %}
+            </h3>
+        </div>
+        <div class="description search-job-dsc" style="display:none;">
+            <center><h3>
+                {% blocktrans %}
+                    Ne izgubljajte časa z iskanjem zaposlitve po različnih portalih. Izkoristite prednosti iskanja zaposlitve
+                    na enem mestu in uporabite preostali čas za pripravo na razgovor.
+                {% endblocktrans %}
+            </h3></center>
+        </div>
+        <div class="description find-job-dsc" style="display:none;">
+            <center><h3>
+                {% blocktrans %}
+                    Zaposlim.se za Vas išče oglase po vseh večjih portalih v Sloveniji. Izkoristite napredni iskalnik
+                    in najdite svojo sanjsko zaposlitev z enim iskanjem na enem mestu.
+                {% endblocktrans %}
+            </h3></center>
+        </div>
+        <div class="description mail-job-dsc" style="display:none;">
+            <center><h3>
+                {% blocktrans %}
+                    Kmalu na voljo ...
+                {% endblocktrans %}
+            </h3></center>
+        </div>
+    </div>
+    <ul>
+        <li><a href="#" class="search-job">{% trans "Iščeš zaposlitev?" %}</a></li>
+        <li><a href="#" class="find-job">{% trans "Najdi zaposlitev" %}</a></li>
+        <li><a href="#" class="mail-job">{% trans "Naroči se na opomnik" %}</a></li>
+    </ul>
+</div>
+<div class="clearfix"></div>

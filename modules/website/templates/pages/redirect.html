@@ -1,0 +1,19 @@
+{% extends "base_static.html" %}
+{% load i18n %}
+
+{% block head %}<meta http-equiv="refresh" content="0;url=?redirect" />{% endblock %}
+{% block content %}
+    <div id="container">
+        <div id="main-center">
+            <div id="center">
+            	<div id="image">
+                	<img src="{{ STATIC_URL }}img/logo.png" />
+                </div>
+                <div id="text">
+                	<img src="{{ STATIC_URL }}img/loader.gif" />
+                	<p>{% trans "Preusmerjam na stran oglasa" %}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

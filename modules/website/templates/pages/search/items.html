@@ -1,0 +1,22 @@
+{{#items}}
+    <div class="item">
+        <div class="item-title">
+            <h3><a href="{{ redirect_url }}" rel="external nofollow">{{ title }}</a></h3>
+        </div>
+        <div class="item-meta">
+            <span class="company">{{ company }}</span>
+            <span class="city">{{ city }}</span>
+        </div>
+        {{#image}}
+            <div class="img-container"><img src="{{ image }}" /></div>
+        {{/image}}
+        <div class="item-content">
+            <div class="summary-container">{{ summary }}</div>
+        </div>
+        <div class="item-data">
+            <span class="date">{{ published_date_ago }}</span>
+            <span class="source">{{ source_label }}</span>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+{{/items}}

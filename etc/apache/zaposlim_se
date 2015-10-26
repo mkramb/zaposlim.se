@@ -1,0 +1,27 @@
+<VirtualHost *:80>
+
+    ServerAdmin mitja.kramberger@zaposlim.se
+    ServerName www.zaposlim.se
+    DocumentRoot /home/webapp/modules/website
+
+    # Django settings
+    WSGIScriptAlias / /home/webapp/modules/wsgi/wsgi_handler.py
+    WSGIDaemonProcess zaposlim_se user=www-data group=www-data processes=2 threads=10
+    WSGIProcessGroup zaposlim_se
+    WSGIPassAuthorization On
+
+    # Non-Django directories
+    Alias /media /home/webapp/modules/website/media
+    Alias /static /home/webapp/modules/website/static
+    
+    <Location "/media">
+        Options -Indexes FollowSymLinks
+        SetHandler None
+    </Location>
+
+    <Location "/static">
+        Options -Indexes FollowSymLinks
+        SetHandler None
+    </Location>
+
+</VirtualHost>

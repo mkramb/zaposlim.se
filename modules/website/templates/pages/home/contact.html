@@ -1,0 +1,29 @@
+{% load i18n template_additions %}
+<div id="dialog">
+    <div class="content">
+        <div id="form-input">
+            <h1>{% trans "Kontakt" %}</h1>
+            <form id="contact-form" name="contact" action="" method="post">
+                <p>
+                    <label for="name">{% trans "Ime" %}: *</label>
+                    <input type="text" name="name" class="{required:true, messages:{required:'{% trans "Podajte vaše ime." %}'}}"/>
+                </p>
+                <p>
+                    <label for="email">{% trans "Vaš el. naslov" %}: *</label>
+                    <input type="text" name="email" class="{required:true, email:true, messages:{required:'{% trans "Podajte vaš el. naslov." %}', email:'{% trans "Podan el. naslov ni v pravilni obliki." %}'}}"/>
+                </p>
+                <p>
+                    <label for="subject">{% trans "Naslov sporočila" %}: *</label>
+                    <input type="text" name="subject" class="{required:true, messages:{required:'{% trans "Podajte naslov sporočila." %}'}}"/>
+                </p>
+                <p>
+                    <label for="message">{% trans "Sporočilo" %}: *</label>
+                    <textarea name="message" class="{required:true, messages:{required:'{% trans "Podajte vsebino sporočilo." %}'}}"></textarea>
+                </p>
+                <p><input type="button" name="submit" value="{% trans "Pošlji" %}" /></p>
+            </form>
+        </div>
+        <div id="form-success">{% trans "Hvala. Uspešno ste poslali kontaktno sporočilo." %}</div>
+        <div id="form-error">{% trans "Prišlo je do napake." %}</div>
+    </div>
+</div>

@@ -1,0 +1,152 @@
+{% load i18n template_additions %}
+<div id="search-bar-container">
+    <div id="search-bar">
+        <div id=logo-container>
+            <a href="/#" title='{% trans "zaposlim.se :: vsa delovna mesta na enem mestu" %}'>
+                <span class="logo-small ir png_bg">{% trans "zaposlim.se" %}</span>
+            </a>
+        </div>
+        {% comment %}
+        <div id="auth">
+            <ul>
+                <li class="logout">
+                    <a href="">odjava</a>
+                </li>
+                <li class="profile">
+                    <a href="">profil</a>
+                </li>
+            </ul>
+        </div>
+        {% endcomment %}
+        <form name="search" onsubmit="return false" autocomplete="off">
+            <div class="element">
+                <div class="title"><label for="what">{% trans "kaj?" %}</label></div>
+                <div class="input"><input type="text" id="what" name="what" maxlength="100" tabindex="4" /></div>
+                <div class="help">{% trans "delovno mesto, ključne besede ali ime podjetja" %}</div>
+            </div>
+            <div class="element">
+                <div class="title"><label for="where">{% trans "kje?" %}</label></div>
+                <div class="input"><input type="text" id="where" name="where" maxlength="100" tabindex="5" /></div>
+                <div class="help">{% trans "mesto ali kraj" %}</div>
+            </div>
+            <div class="element hs">
+                <input type="submit" value="{% trans "Najdi delo" %}" tabindex="6" />
+            </div>
+        </form>
+    </div>
+</div>
+<div id="results-container">
+    <div class="left-menu">
+        <div class="filter">
+            <h4>{% trans "Filtriraj po delodajalcu" %}</h4>
+            {% if not request.is_crawler %}
+                <ul><li class="no-data">{% trans "Ni podatkov" %}</li></ul>
+            {% else %}
+                {% if facets %}
+                    <ul>{{ facets|safe }}</ul>
+                {% else %}
+                    <ul><li class="no-data">{% trans "Ni podatkov" %}</li></ul>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+    <div class="right-menu">
+      <div class="item">
+            {% blocktrans %}
+                <h4>Nasveti za iskanje</h4>
+                <p>
+                    Izpolniti morate vsaj <strong>eno iskalno polje</strong> in vnesti <strong>minimalno 3</strong> znake.
+                    Rezultati bodo najbolj natančni, če boste vnesli obe iskalni polji.
+                </p>
+                <p>
+                    Uporabite lahko operator <strong>OR (ali), podan z veliki črkami</strong>. Tako da npr. izvedete iskanje <i>ljubljana OR maribor</i>
+                    in bo iskal bo obeh krajih ali delovnih mestih. Pravtako lahko uporabite <strong>asterisk *</strong>, za dokončanje niza.
+                    Npr. <i>direkt*</i>, bo iskal vse kar se prične z "direkt".
+                </p>
+                <p>
+                    Posamezne nize lahko tudi izključite iz iskanja z uporabo <strong>- (izključitev)</strong>,
+                    npr. <i>programer -php</i>, ki pa se ne sme začeti iskanja,.
+                </p>
+            {% endblocktrans %}
+      </div>
+        {% if not request.is_crawler %}
+          <div class="banner">
+                <a href="http://www.avila-prevajanje.si/storitve/jezikovni_tecaji" rel="external"><img src="{{ MEDIA_URL }}/ads/1.gif" border="0" /></a>
+                <iframe src="{{ MEDIA_URL }}/static/banner_right.html" width="180" height="640" frameBorder="0" id="banner_0"></iframe>
+            </div>
+        {% endif %}
+    </div>
+    <div id="results">
+      <div class="search-term" {% if request.is_crawler %} style="display:block" {% endif %}>
+        <h1>{% trans "Zaposlitev: " %}<b>{% if request.is_crawler %} {{ term }} {% endif %}</b></h1>
+        {% if not request.is_crawler %}
+          <div class="buttons">
+                  <a rel="external nofollow" href="/#" class="share fb-share"><span>{% trans "objavi" %}</span></a>
+          </div>
+        {% endif %}
+      </div>
+      <div class="results-info" {% if request.is_crawler %} style="display:block" {% endif %}>
+        <div class="num-results">
+                <span>{% if request.is_crawler %} {{ total }} {% endif %}</span>
+                {% trans "rezultatov za ta iskalni niz" %}
+            </div>
+            {% if not request.is_crawler %}
+          <div class="sorting">
+                  <div>{% trans "Sortiraj po:" %}</div>
+                  <span></span>
+              </div>
+            {% endif %}
+      </div>
+      <hr />
+        <div>
+            <div class="items">
+                {% if request.is_crawler %}
+                    {{ items|safe }}
+                {% endif %}
+            </div>
+            <div class="pagination">
+                {% if request.is_crawler %}
+                    {{ pagination|safe }}
+                {% endif %}
+            </div>
+        </div>
+        <div class="no-results" style="display:none">
+            <h1>{% trans "Ni zadetkov za podano iskanje." %}</h1>
+            <p>Lahko pa poizkusite kakega izmed spodnjih predlaganih iskanj.</p>
+            <hr />
+            <div class="suggestions">
+              <h2>Popularna iskanja</h2>
+              <ul>
+                  <li><a href="/#!zaposlitev?what=sestavljalec strojev">sestavljalec strojev</a></li>
+                  <li><a href="/#!zaposlitev?what=catro">catro</a></li>
+                  <li><a href="/#!zaposlitev?what=interna podpora">interna podpora</a></li>
+                  <li><a href="/#!zaposlitev?what=osebni svetovalec">osebni svetovalec</a></li>
+                  <li><a href="/#!zaposlitev?what=sestavljalec">sestavljalec</a></li>
+                  <li><a href="/#!zaposlitev?what=hrm">hrm</a></li>
+                  <li><a href="/#!zaposlitev?what=osebni svetovalec">osebni svetovalec</a></li>
+                  <li><a href="/#!zaposlitev?what=sestavljalec">sestavljalec</a></li>
+                  <li><a href="/#!zaposlitev?what=hrm">hrm</a></li>
+                  <li><a href="/#!zaposlitev?what=sestavljalec strojev">sestavljalec strojev</a></li>
+              </ul>
+            </div>
+
+            <div class="suggestions">
+              <h2>Zadnja iskanja</h2>
+              <ul>
+                  <li><a href="/#!zaposlitev?what=sestavljalec strojev">sestavljalec strojev</a></li>
+                  <li><a href="/#!zaposlitev?what=catro">catro</a></li>
+                  <li><a href="/#!zaposlitev?what=interna podpora">interna podpora</a></li>
+                  <li><a href="/#!zaposlitev?what=osebni svetovalec">osebni svetovalec</a></li>
+                  <li><a href="/#!zaposlitev?what=sestavljalec">sestavljalec</a></li>
+                  <li><a href="/#!zaposlitev?what=hrm">hrm</a></li>
+                  <li><a href="/#!zaposlitev?what=osebni svetovalec">osebni svetovalec</a></li>
+                  <li><a href="/#!zaposlitev?what=sestavljalec">sestavljalec</a></li>
+                  <li><a href="/#!zaposlitev?what=hrm">hrm</a></li>
+                  <li><a href="/#!zaposlitev?what=sestavljalec strojev">sestavljalec strojev</a></li>
+              </ul>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
+</div>

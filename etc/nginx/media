@@ -1,0 +1,15 @@
+server {
+
+    listen       80;
+    server_name  media.zaposlim.se;
+
+    server_tokens off;
+    keepalive_timeout 10; 
+
+    location / {
+        expires 30d;
+        autoindex  off;
+        root   /home/webapp/modules/website/media/;
+    }
+
+}

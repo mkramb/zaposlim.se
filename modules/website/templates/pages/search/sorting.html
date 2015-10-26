@@ -1,0 +1,8 @@
+{{#sorting}}
+    {{#selected}}
+        <a>{{ label }}</a>
+    {{/selected}}
+    {{^selected}}
+        {{#generateLink}}{{ field }}${{ label }}{{/generateLink}}
+    {{/selected}}
+{{/sorting}}

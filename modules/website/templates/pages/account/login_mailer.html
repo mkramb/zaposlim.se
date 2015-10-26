@@ -1,0 +1,19 @@
+{% load i18n template_additions %}
+<div id="dialog" class="popup-data">
+    <div class="content">
+        <div id="form-input">
+            <form id="login-form" name="login" action="" method="post">
+                <h1>{% trans "Prijava / Registracija" %}</h1>
+                <p>{% trans "Za prijavo na opomnik se morate najprej prijaviti/registrirati." %}</p>
+                <p>{% trans "Zaposlim.se uvaja nov inovativen način prijave. Vse kar rabite storiti je to, da vnesete svoj email naslov kamor vam bomo poslali url za vpis. Nikoli se vam ne bo treba zapominiti gesla in nikoli se vam ne more zgoditi da bi ga pozabili." %}</p>
+                <p>
+                    <label for="name">{% trans "Email naslov" %}: *</label>
+                    <input type="text" name="email" class="{required:true, messages:{required:'{% trans "Podajte vaš email naslov" %}'}}"/>
+                </p>
+                <p><input type="button" name="submit" value="{% trans 'Pošlji' %}" /></p>
+            </form>
+        </div>
+        <div id="form-success">{% trans "Hvala. Na podan email naslov smo vam poslali vse nadaljne informacije." %}</div>
+        <div id="form-error">{% trans "Prišlo je do napake." %}</div>
+    </div>
+</div>

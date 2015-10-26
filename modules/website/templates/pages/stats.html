@@ -1,0 +1,30 @@
+{% load i18n template_additions %}
+<div id="search-bar-container">
+    <div id="search-bar">
+        <div id=logo-container>
+            <a href="/#" title='{% trans "zaposlim.se :: vsa delovna mesta na enem mestu" %}'>
+                <span class="logo-small ir png_bg">{% trans "zaposlim.se" %}</span>
+            </a>
+        </div>
+        <form name="search" onsubmit="return false" autocomplete="off">
+            <div class="element">
+                <div class="title"><label for="what">{% trans "kaj?" %}</label></div>
+                <div class="input"><input type="text" id="what" name="what" maxlength="100" tabindex="4" /></div>
+                <div class="help">{% trans "delovno mesto, ključne besede ali ime podjetja" %}</div>
+            </div>
+            <div class="element">
+                <div class="title"><label for="where">{% trans "kje?" %}</label></div>
+                <div class="input"><input type="text" id="where" name="where" maxlength="100" tabindex="5" /></div>
+                <div class="help">{% trans "mesto ali kraj" %}</div>
+            </div>
+            <div class="element hs">
+                <input type="submit" value="{% trans "Najdi delo" %}" tabindex="6" />
+            </div>
+        </form>
+    </div>
+</div>
+<div id="stats-container">
+    <h1 class="stats-title">{% if request.is_crawler %} {{ title }} {% endif %}</h1>
+    <div id="stats-searches">{% if request.is_crawler %} {{ stats|safe}} {% endif %}</div>
+    <div class="clearfix"></div>
+</div>

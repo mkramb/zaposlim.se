@@ -1,0 +1,16 @@
+# Management commands
+
+$ python manage.py search_list
+$ python manage.py search_list --all
+
+$ python manage.py search_delete <source_name source_name ...>
+$ python manage.py search_delete --all
+
+# init indicies 
+$ python manage.py search_init
+
+# clear memcache
+$ python manage.py cache_clear
+
+# to start all servers on zaposlim-scraper run (as root):
+$ init-servers

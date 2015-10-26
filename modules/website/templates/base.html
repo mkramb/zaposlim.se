@@ -1,0 +1,142 @@
+{% load i18n compress template_additions %}
+<!doctype html>
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>{% trans "najdi svojo sanjsko zaposlitev" %}</title>
+
+    <meta name="description" content="{% trans "prvi iskalnik po zaposlitvenih oglasih v sloveniji, vsi zaposlitveni oglasi na enem mestu" %}">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="robots" content="index, follow">
+    <meta name="robots" content="all">
+    <meta name="fragment" content="!">
+
+    <meta name="msvalidate.01" content="D92AE69A28D581E17733C76768CB00FA" />
+    <link rel="shortcut icon" href="{{ STATIC_URL }}img/favicon.ico" />
+
+    {% compress css %}
+        <link type="text/x-scss" rel="stylesheet" href="{{ STATIC_URL }}css/style.scss" />
+        <link type="text/x-scss" rel="stylesheet" href="{{ STATIC_URL }}css/lib/autocomplete/jquery.autocomplete.css" />
+        <link type="text/x-scss" rel="stylesheet" href="{{ STATIC_URL }}css/lib/simplemodal/basic.css" />
+    {% endcompress %}
+
+    {% if not request.is_crawler %}
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+      <script>!window.jQuery && document.write(unescape('%3Cscript src="{{ STATIC_URL }}js/libs/jquery-1.6.2.min.js"%3E%3C/script%3E'))</script>
+
+      <script src="{{ STATIC_URL }}js/libs/modernizr-2.0.6.min.js"></script>
+      <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+      <script src="{% url django.views.i18n.javascript_catalog %}"></script>
+
+      <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-24715069-1']);
+
+            (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+      </script>
+    {% endif %}
+
+</head>
+<body>
+    <div id="container">
+        <header>
+            <div class="line"></div>
+        </header>
+
+        {% if not request.is_crawler %}
+          <noscript>
+              <div id="nojs">
+                  {% trans "Vaš brskalnik ne omogoča JavaScript-a, ki je nujno potreben za pravilno delovanje spletne strani." %}
+              </div>
+          </noscript>
+        {% endif %}
+
+        <div id="main">
+            {% if not request.is_crawler %}
+                <div class="home"></div>
+                <div class="search"></div>
+                <div class="stats-searches"></div>
+            {% else %}
+                {% if home %}
+                    <div class="home">
+                        {{ home|safe }}
+                    </div>
+                {% else %}
+                    <div class="search" style="display:block">
+                        {{ search|safe }}
+                    </div>
+                {% endif %}
+            {% endif %}
+        </div>
+
+        <footer class="home">
+            <div id="pages">
+                <a href="/#" rel="about" class="static-page">{% trans "O portalu" %}</a>
+                <a href="/#" rel="legal" class="static-page">{% trans "Pogoji uporabe" %}</a>
+                <a href="/#" rel="advertisement" class="static-page">{% trans "Oglaševanje" %}</a>
+                <a href="/#" rel="contact" class="contact-page">{% trans "Kontakt" %}</a>
+            </div>
+        </footer>
+
+        {% csrf_token %}
+
+    </div>
+
+    {% if not request.is_crawler %}
+      {% compress js %}
+          <script src="{{ STATIC_URL }}js/libs/json2.js"></script>
+          <script src="{{ STATIC_URL }}js/libs/mustache.js"></script>
+          <script src="{{ STATIC_URL }}js/libs/underscore.js"></script>
+          <script src="{{ STATIC_URL }}js/libs/backbone.js"></script>
+
+          <script src="{{ STATIC_URL }}js/libs/jquery.cookie.js"></script>
+          <script src="{{ STATIC_URL }}js/libs/jquery.autocomplete.js"></script>
+          <script src="{{ STATIC_URL }}js/libs/jquery.simplemodal.1.4.1.min.js"></script>
+          <script src="{{ STATIC_URL }}js/libs/jquery.validate.min.js"></script>
+          <script src="{{ STATIC_URL }}js/libs/jquery.metadata.js"></script>
+
+          <script src="{{ STATIC_URL }}js/models/stats.js"></script>
+          <script src="{{ STATIC_URL }}js/models/pages.js"></script>
+          <script src="{{ STATIC_URL }}js/models/search.js"></script>
+          <script src="{{ STATIC_URL }}js/models/contact.js"></script>
+
+          <script src="{{ STATIC_URL }}js/views/search.js"></script>
+            <script src="{{ STATIC_URL }}js/views/stats.js"></script>
+          <script src="{{ STATIC_URL }}js/views/home.js"></script>
+          <script src="{{ STATIC_URL }}js/views/site.js"></script>
+
+          <script src="{{ STATIC_URL }}js/plugins.js"></script>
+          <script src="{{ STATIC_URL }}js/routes.js"></script>
+          <script src="{{ STATIC_URL }}js/init.js"></script>
+      {% endcompress %}
+
+      <!--[if lt IE 7 ]>
+          <script src="{{ STATIC_URL }}js/libs/dd_belatedpng.js"></script>
+          <script> DD_belatedPNG.fix('img, .png_bg');</script>
+      <![endif]-->
+
+      <script type="text/html" id="homeTemplate">{% include "pages/home.html" %}</script>
+      <script type="text/html" id="searchTemplate">{% include "pages/search.html" %}</script>
+        <script type="text/html" id="statsTemplate">{% include "pages/stats.html" %}</script>
+        <script type="text/html" id="statsItemTemplate">{% straight_include "pages/stats/items.html" %}</script>
+      <script type="text/html" id="homeContactTemplate">{% include "pages/home/contact.html" %}</script>
+      <script type="text/html" id="homeStatsTemplate">{% straight_include "pages/home/stats.html" %}</script>
+      <script type="text/html" id="searchItemsTemplate">{% straight_include "pages/search/items.html" %}</script>
+      <script type="text/html" id="searchPaginationTemplate">{% straight_include "pages/search/pagination.html" %}</script>
+      <script type="text/html" id="searchSortingTemplate">{% straight_include "pages/search/sorting.html" %}</script>
+      <script type="text/html" id="searchFacetsTemplate">{% straight_include "pages/search/facets.html" %}</script>
+    {% endif %}
+
+</body>
+</html>

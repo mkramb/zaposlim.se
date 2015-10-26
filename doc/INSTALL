@@ -1,0 +1,115 @@
+1. apache & mod_wsgi
+
+$ sudo apt-get install apache2
+$ sudo apt-get install libapache2-mod-wsgi
+
+# is the module enabled?
+# v /etc/apache2/mods-enabled/
+
+2. java
+
+$ sudo apt-get install sun-java6-jre
+$ sudo apt-get install sun-java6-jdk
+
+# edit $HOME/.bashrc
+# export JAVA_HOME=/usr/lib/jvm/java-6-sun
+
+3. elasticsearch
+
+# download from
+# https://github.com/elasticsearch/elasticsearch
+# https://github.com/elasticsearch/elasticsearch-servicewrapper
+
+# vse v exec direktoriju pod services mora bit executable
+$ chmod a+x -R exec/
+
+# install service
+$ sudo ./elasticsearch install
+$ sudo /usr/sbin/update-rc.d elasticsearch defaults
+
+4. jpype
+
+$ sudo apt-get install g++
+$ sudo apt-get install gcc
+$ sudo apt-get install make
+$ sudo apt-get install build-essential
+$ sudo apt-get install python-dev
+
+# download from
+# http://jpype.sourceforge.net/
+
+$ python setup.py build
+$ python setup.py install
+
+5. mysql
+
+$ sudo apt-get install mysql-server
+$ sudo apt-get install python-mysqldb
+
+$ mysql -uroot -p
+$ CREATE DATABASE zaposlim_se;
+
+$ GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' IDENTIFIED BY 'password' WITH GRANT OPTION;
+$ GRANT ALL ON zaposlim_se.* TO webapp@'localhost' IDENTIFIED BY 'password';
+
+$ GRANT ALL ON zaposlim_se.* TO webapp@'62.75.139.151' IDENTIFIED BY 'password';
+$ GRANT ALL ON zaposlim_se.* TO webapp@'62.75.137.160' IDENTIFIED BY 'password';
+$ GRANT ALL ON zaposlim_se.* TO webapp@'82.192.55.148' IDENTIFIED BY 'password';
+
+6. python
+
+$ sudo apt-get install python-dev
+$ sudo apt-get install python-setuptools
+$ sudo apt-get install python-pip
+$ sudo apt-get install libxslt-dev
+$ sudo apt-get install libxml2-dev
+$ sudo apt-get install python-imaging
+
+$ sudo pip install -U Django
+$ sudo pip install -U django-celery
+$ sudo pip install -U django_compressor
+$ sudo pip install -U beautifulsoup
+$ sudo pip install -U lxml
+$ sudo pip install -U html5lib
+$ sudo pip install -U cssmin
+$ sudo pip install -U geopy
+$ sudo pip install -U fabric
+$ sudo pip install -U pystache
+
+7. sass
+
+$ sudo apt-get install ruby rubygems1.8
+$ sudo gem install sass
+
+# edit $HOME/.bashrc
+# export PATH=$PATH:/var/lib/gems/1.8/bin
+
+8. memcached
+
+$ sudo apt-get install memcached
+$ sudo pip install -U python-memcached
+
+9. scrapy
+
+$ sudo pip install -U scrapy
+
+# run all spiders (one at the time)
+$ scrapy list | awk '{print "scrapy crawl "$1}' | sh
+
+# deploy spiders
+$ scrapy deploy default -p scraper
+
+# schedule spider to crawl
+$ curl http://localhost:6800/schedule.json -d project=scraper -d spider=delo
+
+10. celery & rabbitmq
+
+$ sudo apt-get install rabbitmq-server
+$ sudo pip install -U celery
+
+# copy /etc/init.d/celeryd
+# copy /etc/init.d/celerybeat
+
+$ rabbitmqctl add_user scraper delampridno
+$ rabbitmqctl add_vhost webapp
+$ rabbitmqctl set_permissions -p webapp scraper ".*" ".*" ".*"

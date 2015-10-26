@@ -1,0 +1,11 @@
+# start server
+/etc/init.d/tor start
+/etc/init.d/polipo start
+/etc/init.d/scrapyd start
+
+# run celery
+/etc/init.d/celeryd start
+/etc/init.d/celerybeat start
+
+# enable monitoring
+service munin-node start

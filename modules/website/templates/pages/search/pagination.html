@@ -1,0 +1,10 @@
+{{#pagination}}
+    {{#page}}
+        <span class="page {{#selected}} selected {{/selected}}">
+            <a href="/#!zaposlitev?{{ url }}">{{page}}</a>
+        </span>
+    {{/page}}
+    {{^page}}
+        <span class="page edge">...</span>
+    {{/page}}
+{{/pagination}}
